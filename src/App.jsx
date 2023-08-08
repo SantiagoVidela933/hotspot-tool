@@ -1,6 +1,6 @@
 import './App.css';
 import { MenuSteps } from './components/MenuSteps/MenuSteps';
-import { Step } from './components/Step/Step';
+
 
 
 function App() {
@@ -9,7 +9,6 @@ function App() {
     <>
       <div className='App_container'>
         <MenuSteps/>
-        <Step/>
       </div>
     </>
   )
