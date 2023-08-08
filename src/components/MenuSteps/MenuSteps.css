@@ -1,0 +1,46 @@
+.MenuSteps_container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    border: 3px solid #fff;
+    border-radius: 3%;
+    margin-left: 100px;
+    width: 25vw;
+    height: 90vh;
+}
+
+.MenuSteps_container-step{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 50%;
+    padding: 4px;
+    margin-top: 10%;
+}
+
+.MenuSteps_container-title{
+    padding: 10px;
+}
+
+
+.MenuSteps_container-step-button{
+    padding: 20px 30px;
+    background-color: transparent;
+    font-size: 2.3vh;
+    color: #ffffff;
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+.MenuSteps_container-step-button:hover{
+    background-color: #6f17b8;
+    color: white;
+}
+
+.MenuSteps_container-selected{
+    border: 1px solid #fff;
+}
