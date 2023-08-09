@@ -1,19 +1,22 @@
 import { useState } from "react";
-import "./MenuSteps.css";
 import { Step } from "../Step/Step";
+import "./MenuSteps.css";
 
 export const MenuSteps = () => {
 
+    // Estado para almacenar el paso seleccionado
     const [selectedStep, setSelectedStep] = useState(null);
 
+    // Función para manejar el clic en un botón
     const handleStepClick = (step) => {
-        setSelectedStep(step);
+        // Actualizamos el estado con el paso seleccionado
+        setSelectedStep(step); 
     };
 
   return (
     <div className="MenuSteps_container">
 
-        {/* Title Menu */}
+        {/* Título del Menu */}
         <div className="box-title">
             <div className="MenuSteps_container-title">
                 <h1 className="MenuSteps_container-title-h1">Selecciona un tipo de SelectHotspot</h1>
@@ -21,7 +24,7 @@ export const MenuSteps = () => {
         </div>
         
         
-        {/* Start Types of SelectHotspot */}
+        {/* Tipo de SelectHotspot */}
         <div className="box-steps">
             <div className="MenuSteps_container-step">
                 <button 

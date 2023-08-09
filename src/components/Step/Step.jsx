@@ -15,29 +15,6 @@ export const Step = ({ selectedStep }) => {
       backgroundImg: {
         src: ""
       },
-      comeback: true,
-      hasTargets: true,
-      noShowCircle: true,
-      hotspots: [
-        {
-          id: "1",
-          src: "",
-          text: "Primer Escenario",
-          marginLeft: "-25vw",
-          marginTop: "-5vw",
-          width: "12vw",
-          transform: "scale(0.75)"
-        },
-        {
-          id: "2",
-          src: "",
-          text: "Segundo Escenario",
-          marginLeft: "25vw",
-          marginTop: "-5vw",
-          width: "12vw",
-          transform: "scale(0.75)"
-        }
-      ],
       next: [
         {
           key: "1",
@@ -47,7 +24,8 @@ export const Step = ({ selectedStep }) => {
           key: "2",
           next: "next_step"
         }
-      ]
+      ],
+      type: "selecthotspot"
     };
 
     const jsonString = JSON.stringify(jsonContent, null, 2);
