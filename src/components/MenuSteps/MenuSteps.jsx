@@ -2,16 +2,20 @@ import { useState } from "react";
 import "./MenuSteps.css";
 
 export const MenuSteps = () => {
+    // Estado para almacenar el paso seleccionado y el estado de copiado
     const [selectedStep, setSelectedStep] = useState(null);
     const [copied, setCopied] = useState(false);
 
+    // Manejar el clic en un botón de paso
     const handleStepClick = (step) => {
         setSelectedStep(step);
-        setCopied(false); // Reiniciamos el estado de copiado al cambiar el paso
+        setCopied(false); // Reiniciar el estado de copiado al cambiar el paso
     };
 
+    // Manejar el clic en el botón de copia
     const handleCopyClick = () => {
         if (selectedStep !== null) {
+            // Generar el contenido JSON para copiar
             const jsonContent = {
                 id: selectedStep,
                 subTitle: "",
@@ -34,6 +38,7 @@ export const MenuSteps = () => {
 
             const jsonString = JSON.stringify(jsonContent, null, 2);
 
+            // Crear un textarea temporal para copiar al portapapeles
             const tempTextarea = document.createElement("textarea");
             tempTextarea.value = jsonString;
 
@@ -42,6 +47,7 @@ export const MenuSteps = () => {
             document.execCommand("copy");
             document.body.removeChild(tempTextarea);
 
+            // Cambiar el estado de copiado
             setCopied(true);
         }
     };
@@ -57,12 +63,14 @@ export const MenuSteps = () => {
 
     return (
         <div className="MenuSteps_container">
+            {/* Sección del título */}
             <div className="box-title">
                 <div className="MenuSteps_container-title">
                     <h1 className="MenuSteps_container-title-h1">Selecciona un tipo de SelectHotspot</h1>
                 </div>
             </div>
             
+            {/* Sección de los botones de paso */}
             <div className="box-steps">
                 {selectHotspotTypes.map((type) => (
                     <div key={type.id} className="MenuSteps_container-step">
@@ -76,7 +84,7 @@ export const MenuSteps = () => {
                 ))}
             </div>
 
-            {/* Display selected step */}
+            {/* Mostrar el paso seleccionado y el botón de copia si hay un paso seleccionado */}
             {selectedStep && (
                 <div className="Step_container">
                     <div className="Step_container-title">
