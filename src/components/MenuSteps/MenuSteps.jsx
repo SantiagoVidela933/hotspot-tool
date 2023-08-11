@@ -1,78 +1,97 @@
 import { useState } from "react";
-import { Step } from "../Step/Step";
 import "./MenuSteps.css";
 
 export const MenuSteps = () => {
-
-    // Estado para almacenar el paso seleccionado
     const [selectedStep, setSelectedStep] = useState(null);
+    const [copied, setCopied] = useState(false);
 
-    // Función para manejar el clic en un botón
     const handleStepClick = (step) => {
-        // Actualizamos el estado con el paso seleccionado
-        setSelectedStep(step); 
+        setSelectedStep(step);
+        setCopied(false); // Reiniciamos el estado de copiado al cambiar el paso
     };
 
-  return (
-    <div className="MenuSteps_container">
+    const handleCopyClick = () => {
+        if (selectedStep !== null) {
+            const jsonContent = {
+                id: selectedStep,
+                subTitle: "",
+                audio: "",
+                backgroundImg: {
+                    src: ""
+                },
+                next: [
+                    {
+                        key: "1",
+                        next: "next_step"
+                    },
+                    {
+                        key: "2",
+                        next: "next_step"
+                    }
+                ],
+                type: "selecthotspot"
+            };
 
-        {/* Título del Menu */}
-        <div className="box-title">
-            <div className="MenuSteps_container-title">
-                <h1 className="MenuSteps_container-title-h1">Selecciona un tipo de SelectHotspot</h1>
+            const jsonString = JSON.stringify(jsonContent, null, 2);
+
+            const tempTextarea = document.createElement("textarea");
+            tempTextarea.value = jsonString;
+
+            document.body.appendChild(tempTextarea);
+            tempTextarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempTextarea);
+
+            setCopied(true);
+        }
+    };
+
+    // Array de objetos para los tipos de SelectHotspot
+    const selectHotspotTypes = [
+        { id: "Map", label: "SelectHotspot Map" },
+        { id: "Image", label: "SelectHotspot Image" },
+        { id: "Targets", label: "SelectHotspot Targets" },
+        { id: "IconText", label: "SelectHotspot IconText" },
+        { id: "Order", label: "SelectHotspot Order" }
+    ];
+
+    return (
+        <div className="MenuSteps_container">
+            <div className="box-title">
+                <div className="MenuSteps_container-title">
+                    <h1 className="MenuSteps_container-title-h1">Selecciona un tipo de SelectHotspot</h1>
+                </div>
             </div>
+            
+            <div className="box-steps">
+                {selectHotspotTypes.map((type) => (
+                    <div key={type.id} className="MenuSteps_container-step">
+                        <button 
+                            className="MenuSteps_container-step-button"
+                            onClick={() => handleStepClick(type.id)}
+                        >
+                            {type.label}
+                        </button>
+                    </div>
+                ))}
+            </div>
+
+            {/* Display selected step */}
+            {selectedStep && (
+                <div className="Step_container">
+                    <div className="Step_container-title">
+                        <h2 className="Step_container-title-h2">{selectedStep}</h2>
+                    </div>
+                    <div className="Step_container-box">
+                        <button
+                            className="Step_container-box-button"
+                            onClick={handleCopyClick}
+                        >
+                            {copied ? "Copiado" : "Copy JSON"}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-        
-        
-        {/* Tipo de SelectHotspot */}
-        <div className="box-steps">
-            <div className="MenuSteps_container-step">
-                <button 
-                    className="MenuSteps_container-step-button"
-                    onClick={() => handleStepClick("Map")}
-                >
-                    SelectHotspot Map
-                </button>
-            </div>
-            <div className="MenuSteps_container-step">
-                <button 
-                    className="MenuSteps_container-step-button"
-                    onClick={() => handleStepClick("Image")}
-                >
-                    SelectHotspot Image
-                </button>
-            </div>
-            <div className="MenuSteps_container-step">
-                <button 
-                    className="MenuSteps_container-step-button"
-                    onClick={() => handleStepClick("Targets")}
-                >
-                    SelectHotspot Targets
-                </button>
-            </div>
-            <div className="MenuSteps_container-step">
-                <button 
-                    className="MenuSteps_container-step-button"
-                    onClick={() => handleStepClick("IconText")}
-                >
-                    SelectHotspot IconText
-                </button>
-            </div>
-            <div className="MenuSteps_container-step">
-                <button 
-                    className="MenuSteps_container-step-button"
-                    onClick={() => handleStepClick("Order")}
-                >
-                    SelectHotspot Order
-                </button>
-            </div>
-        </div>
-        {/* End Types of SelectHotspot */}
-        
-
-        {/* Display selected step */}
-        {selectedStep && <Step selectedStep={selectedStep} />}
-
-    </div>
-  )
-}
+    );
+};
